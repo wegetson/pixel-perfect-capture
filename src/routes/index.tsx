@@ -27,7 +27,7 @@ const NAV = [
   { href: "#dlaczego", label: "Dlaczego my" },
   { href: "#pakiety", label: "Pakiety" },
   { href: "#cennik", label: "Cennik" },
-  { href: "#o-mnie", label: "O mnie" },
+  { href: "#kontakt", label: "Kontakt" },
 ];
 
 const btn =
@@ -51,7 +51,6 @@ function Index() {
         <Why />
         <Packages />
         <PriceList />
-        <About />
         <Contact />
       </main>
       <Footer />
@@ -183,16 +182,16 @@ function Why() {
 function Packages() {
   const plans = [
     {
-      name: "START", sub: "Obecność w Sieci", tag: "Idealne na początek", price: "1 290 zł", note: "netto, jednorazowo",
-      features: ["Nowoczesna strona WWW / Landing Page (Lovable + GitHub + Cloudflare)", "0 zł opłat za hosting", "Konfiguracja GA4 + Google Tag Manager", "Konfiguracja Google Search Console", "Wizytówka Google Moja Firma"],
+      name: "START", sub: "Obecność w Sieci", tag: "Idealne na początek", price: "1 290 zł", oldPrice: "1 899 zł", note: "netto, jednorazowo",
+      features: ["Nowoczesna strona WWW / Landing Page (GitHub + Cloudflare)", "0 zł opłat za hosting", "Konfiguracja GA4 + Google Tag Manager", "Konfiguracja Google Search Console", "Wizytówka Google Moja Firma"],
     },
     {
-      name: "BIZNES", sub: "Strona + Klient", tag: "Najchętniej wybierany", price: "2 190 zł", note: "netto na start, z 1. miesiącem obsługi", after: "Od 2. miesiąca: 650 zł netto / mc", featured: true,
+      name: "BIZNES", sub: "Strona + Klient", tag: "Najchętniej wybierany", price: "2 190 zł", oldPrice: "3 699 zł", note: "netto na start, z 1. miesiącem obsługi", after: "Od 2. miesiąca: 650 zł netto / mc", featured: true,
       features: ["Wszystko z Pakietu START", "Setup kampanii Google Ads LUB Meta Ads", "Konfiguracja śledzenia konwersji i zdarzeń", "1. miesiąc prowadzenia i optymalizacji kampanii w cenie"],
     },
     {
-      name: "PRO GROWTH", sub: "Pełny Ekosystem", tag: "Dla wymagających", price: "3 290 zł", note: "netto na start", after: "Od 2. miesiąca: 1 150 zł netto / mc",
-      features: ["Rozbudowana strona WWW (Lovable + Cloudflare)", "Pełna analityka (GA4 + GTM + GSC + Pixel Meta)", "Setup + 1. miesiąc prowadzenia Google Ads ORAZ Meta Ads", "Konfiguracja domen, firmowej poczty e-mail i wsparcie techniczne"],
+      name: "PRO GROWTH", sub: "Pełny Ekosystem", tag: "Dla wymagających", price: "3 290 zł", oldPrice: "4 999 zł", note: "netto na start", after: "Od 2. miesiąca: 1 150 zł netto / mc",
+      features: ["Rozbudowana strona WWW (Cloudflare)", "Pełna analityka (GA4 + GTM + GSC + Pixel Meta)", "Setup + 1. miesiąc prowadzenia Google Ads ORAZ Meta Ads", "Konfiguracja domen, firmowej poczty e-mail i wsparcie techniczne"],
     },
   ];
   return (
@@ -204,7 +203,10 @@ function Packages() {
             <span className={`brut self-start px-3 py-1 text-xs font-bold uppercase ${p.featured ? "bg-sun" : "bg-lavender"}`}>{p.tag}</span>
             <h3 className="mt-5 text-2xl font-bold">PAKIET {p.name}</h3>
             <p className="text-sm font-semibold">„{p.sub}”</p>
-            <p className="mt-5 font-display text-4xl font-bold">{p.price}</p>
+            <p className="mt-5 flex flex-wrap items-baseline gap-x-3">
+              <span className="font-display text-4xl font-bold">{p.price}</span>
+              <span className="font-display text-lg font-semibold text-muted-foreground line-through">{p.oldPrice}</span>
+            </p>
             <p className="text-sm">{p.note}</p>
             {p.after && <p className="mt-2 rounded border-2 border-dashed border-ink px-2 py-1 text-sm font-semibold">{p.after}</p>}
             <ul className="mt-6 flex-1 space-y-3">
@@ -217,7 +219,7 @@ function Packages() {
                 </li>
               ))}
             </ul>
-            <a href="#kontakt" className={`${btn} mt-8 w-full ${p.featured ? "bg-ink text-background" : "bg-sun"}`}>
+            <a href="#kontakt" className={`${btn} mt-8 w-full ${p.featured ? "bg-ink text-sun" : "bg-sun"}`}>
               Wybieram {p.name}
             </a>
           </article>
@@ -229,7 +231,7 @@ function Packages() {
 
 function PriceList() {
   const rows = [
-    ["Strona WWW (Lovable + Cloudflare)", "od 990 zł netto"],
+    ["Strona WWW (Cloudflare)", "od 990 zł netto"],
     ["Pełny Setup Analityczny (GA4 + GTM + Search Console)", "490 zł netto"],
     ["Podpięcie Google Tag Manager (GTM)", "250 zł netto"],
     ["Setup Kampanii Google Ads lub Meta Ads", "490 zł netto / platforma"],
@@ -249,24 +251,6 @@ function PriceList() {
             </li>
           ))}
         </ul>
-      </div>
-    </section>
-  );
-}
-
-function About() {
-  return (
-    <section id="o-mnie" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20">
-      <div className="brut grid gap-8 bg-lavender p-8 md:grid-cols-[auto_1fr] md:p-12">
-        <div className="brut flex h-28 w-28 items-center justify-center bg-peach font-display text-4xl font-bold">HS</div>
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight">O mnie</h2>
-          <p className="mt-4 max-w-2xl text-lg">
-            Cześć! Za hs-marketing stoi jedna osoba — bez pośredników i korporacyjnych procedur. Łączę tworzenie
-            szybkich stron z kampaniami reklamowymi, żeby Twoja strona nie tylko ładnie wyglądała, ale przede
-            wszystkim przynosiła zapytania od klientów.
-          </p>
-        </div>
       </div>
     </section>
   );
