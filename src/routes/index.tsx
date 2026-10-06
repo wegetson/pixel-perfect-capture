@@ -48,8 +48,8 @@ function Index() {
       <Navbar />
       <main>
         <Hero />
-        <Why />
         <Packages />
+        <Why />
         <PriceList />
         <Contact />
       </main>
