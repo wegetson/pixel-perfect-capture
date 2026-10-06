@@ -48,8 +48,8 @@ function Index() {
       <Navbar />
       <main>
         <Hero />
-        <Why />
         <Packages />
+        <Why />
         <PriceList />
         <Contact />
       </main>
@@ -105,40 +105,34 @@ function Navbar() {
 }
 
 function Hero() {
-  const badges = [
-    "🚀 0 zł opłat za hosting strony",
-    "📈 Analityka GA4 + GTM w cenie",
-    "🎯 Kampanie Google & Meta Ads",
-    "⏱️ Szybkie terminy realizacji",
+  const particles: { style: React.CSSProperties; cls: string }[] = [
+    { cls: "bg-peach", style: { left: "8%", top: "18%", width: 26, height: 26, borderRadius: "50%", animation: "float-a 9s infinite" } },
+    { cls: "bg-sun border-2 border-ink", style: { left: "15%", top: "65%", width: 34, height: 34, animation: "float-b 11s infinite" } },
+    { cls: "bg-sage", style: { left: "28%", top: "30%", width: 16, height: 16, borderRadius: "50%", animation: "float-c 7s infinite" } },
+    { cls: "bg-lavender border-2 border-ink", style: { left: "38%", top: "78%", width: 22, height: 22, transform: "rotate(45deg)", animation: "float-a 10s infinite" } },
+    { cls: "bg-peach border-2 border-ink", style: { left: "55%", top: "15%", width: 18, height: 18, animation: "float-b 8s infinite" } },
+    { cls: "bg-sun", style: { left: "68%", top: "60%", width: 30, height: 30, borderRadius: "50%", animation: "float-c 12s infinite" } },
+    { cls: "bg-sage border-2 border-ink", style: { left: "80%", top: "25%", width: 24, height: 24, animation: "float-a 9.5s infinite" } },
+    { cls: "bg-lavender", style: { left: "88%", top: "70%", width: 14, height: 14, borderRadius: "50%", animation: "float-b 7.5s infinite" } },
+    { cls: "bg-peach", style: { left: "45%", top: "45%", width: 12, height: 12, animation: "float-c 6.5s infinite" } },
+    { cls: "bg-sun border-2 border-ink", style: { left: "92%", top: "40%", width: 20, height: 20, borderRadius: "50%", animation: "float-a 10.5s infinite" } },
   ];
   return (
-    <section className="mx-auto max-w-6xl px-4 pb-20 pt-14 md:pt-24">
-      <span className="brut inline-block bg-sun px-3 py-1.5 text-sm font-semibold">
-        ⚡ Nowoczesne strony bez opłat za hosting & Skuteczny Marketing
-      </span>
-      <h1 className="mt-6 max-w-4xl text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
-        Prosty marketing i strony WWW, które{" "}
-        <span className="rounded-md border-2 border-ink bg-peach px-2">naprawdę</span> generują klientów.
-      </h1>
-      <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
-        Tworzę szybkodziałające strony w architekturze bezabonamentowej (0 zł za hosting) oraz prowadzę precyzyjne
-        kampanie Google Ads i Meta Ads. Bez zbędnego korpo-bełkotu.
-      </p>
-      <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-        <a href="#pakiety" className={`${btn} bg-peach`}>
-          Zobacz Pakiety Usług
-        </a>
-        <a href="#kontakt" className={`${btn} bg-card`}>
-          Skonsultuj swój projekt
+    <section className="relative overflow-hidden border-b-2 border-ink">
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        {particles.map((p, i) => (
+          <span key={i} className={`hero-particle ${p.cls}`} style={p.style} />
+        ))}
+      </div>
+      <div className="relative mx-auto flex max-w-4xl flex-col items-center px-4 py-28 text-center md:py-36">
+        <h1 className="text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
+          Prosty marketing i strony WWW, które{" "}
+          <span className="rounded-md border-2 border-ink bg-peach px-2">naprawdę</span> generują klientów.
+        </h1>
+        <a href="#kontakt" className={`${btn} mt-10 bg-sun`}>
+          Dowiedz się więcej
         </a>
       </div>
-      <ul className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {badges.map((b) => (
-          <li key={b} className="brut rounded-full bg-card px-4 py-2.5 text-center text-sm font-semibold">
-            {b}
-          </li>
-        ))}
-      </ul>
     </section>
   );
 }
