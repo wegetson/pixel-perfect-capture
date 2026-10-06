@@ -256,24 +256,6 @@ function PriceList() {
   );
 }
 
-function About() {
-  return (
-    <section id="o-mnie" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20">
-      <div className="brut grid gap-8 bg-lavender p-8 md:grid-cols-[auto_1fr] md:p-12">
-        <div className="brut flex h-28 w-28 items-center justify-center bg-peach font-display text-4xl font-bold">HS</div>
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight">O mnie</h2>
-          <p className="mt-4 max-w-2xl text-lg">
-            Cześć! Za hs-marketing stoi jedna osoba — bez pośredników i korporacyjnych procedur. Łączę tworzenie
-            szybkich stron z kampaniami reklamowymi, żeby Twoja strona nie tylko ładnie wyglądała, ale przede
-            wszystkim przynosiła zapytania od klientów.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Contact() {
   const options = ["Strona WWW", "Google Ads", "Meta Ads", "Analityka / GTM", "Inne"];
   const [picked, setPicked] = useState<string[]>([]);
