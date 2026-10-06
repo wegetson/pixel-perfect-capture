@@ -305,8 +305,8 @@ function Contact() {
           <aside className="brut h-fit space-y-5 bg-sun p-6 md:p-8">
             <h3 className="text-xl font-bold">Kontakt bezpośredni</h3>
             {[
-              { Icon: Mail, l: "Email", v: "kontakt@hs-marketing.pl", h: "mailto:kontakt@hs-marketing.pl" },
-              { Icon: Phone, l: "WhatsApp / Telefon", v: "[Twój numer]", h: undefined },
+              { Icon: Mail, l: "Email", v: "hs-marketing@gmail.com", h: "mailto:hs-marketing@gmail.com" },
+              { Icon: Phone, l: "WhatsApp / Telefon", v: "535 009 931", h: undefined },
               { Icon: Globe, l: "Domena", v: "hs-marketing.pl", h: "https://hs-marketing.pl" },
             ].map(({ Icon, l, v, h }) => (
               <div key={l} className="flex items-center gap-3">
