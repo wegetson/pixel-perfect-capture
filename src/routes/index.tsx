@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
-import { Check, Cloud, BarChart3, Target, Wrench, Mail, Phone, Globe, Menu, X } from "lucide-react";
+import { ArrowRight, Check, Cloud, BarChart3, Target, Wrench, Mail, Phone, Globe, Menu, X, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import websiteGrid from "@/assets/website-grid.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -23,6 +25,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+
 const NAV = [
   { href: "#dlaczego", label: "Dlaczego my" },
   { href: "#pakiety", label: "Pakiety" },
@@ -30,147 +33,52 @@ const NAV = [
   { href: "#kontakt", label: "Kontakt" },
 ];
 
-const btn =
-  "brut brut-press inline-flex items-center justify-center gap-2 px-5 py-3 font-display font-bold text-ink";
+function Logo({ footer = false }: { footer?: boolean }) {
+  return <a href="#top" className={footer ? "footer-wordmark" : "wordmark"} aria-label="hs-marketing — strona główna">hs-marketing<span>.pl</span></a>;
+}
 
-function Logo() {
-  return (
-    <a href="#top" className="flex items-center gap-1 font-display text-xl font-bold tracking-tight">
-      hs-marketing
-      <span className="rounded border-2 border-ink bg-peach px-1.5 text-xs">.pl</span>
-    </a>
-  );
+function CTA({ href = "#kontakt", children, outline = false }: { href?: string; children: React.ReactNode; outline?: boolean }) {
+  return <Button asChild variant={outline ? "outline" : "default"} className="adfin-button"><a href={href}>{children}<ArrowRight size={16} /></a></Button>;
 }
 
 function Index() {
-  return (
-    <div id="top" className="min-h-screen bg-background text-foreground">
-      <Navbar />
-      <main>
-        <Hero />
-        <Packages />
-        <Why />
-        <PriceList />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
-  );
+  return <div id="top" className="min-h-screen bg-background text-foreground">
+    <Navbar />
+    <main className="page-frame"><Hero /><Packages /><Why /><PriceList /><Contact /></main>
+    <Footer />
+  </div>;
 }
 
 function Navbar() {
   const [open, setOpen] = useState(false);
-  return (
-    <header className="sticky top-0 z-50 border-b-2 border-ink bg-background">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <Logo />
-        <ul className="hidden gap-8 font-semibold md:flex">
-          {NAV.map((n) => (
-            <li key={n.href}>
-              <a href={n.href} className="underline-offset-4 hover:underline">
-                {n.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <a href="#kontakt" className={`${btn} hidden bg-peach py-2 md:inline-flex`}>
-          Darmowa Wycena
-        </a>
-        <button
-          aria-label={open ? "Zamknij menu" : "Otwórz menu"}
-          className="brut bg-card p-2 md:hidden"
-          onClick={() => setOpen(!open)}
-        >
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      </nav>
-      {open && (
-        <div className="border-t-2 border-ink px-4 py-4 md:hidden">
-          <ul className="flex flex-col gap-3 font-semibold">
-            {NAV.map((n) => (
-              <li key={n.href}>
-                <a href={n.href} onClick={() => setOpen(false)}>
-                  {n.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <a href="#kontakt" onClick={() => setOpen(false)} className={`${btn} mt-4 w-full bg-peach`}>
-            Darmowa Wycena
-          </a>
-        </div>
-      )}
-    </header>
-  );
+  const [notice, setNotice] = useState(true);
+  return <header className="site-header">
+    {notice && <div className="announcement"><a href="#pakiety">Strony WWW bez opłat za hosting. Poznaj pakiety <ArrowRight size={14} /></a><Button variant="ghost" size="icon" aria-label="Zamknij informację" onClick={() => setNotice(false)}><X size={15} /></Button></div>}
+    <nav className="navigation">
+      <Logo />
+      <ul className="desktop-links">{NAV.map((n, i) => <li key={n.href}><a href={n.href}>{n.label}{i < 2 && <ChevronDown size={12} />}</a></li>)}</ul>
+      <div className="navigation-cta"><CTA>Darmowa wycena</CTA></div>
+      <Button className="mobile-menu" variant="ghost" size="icon" aria-label={open ? "Zamknij menu" : "Otwórz menu"} aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button>
+    </nav>
+    {open && <div className="mobile-links">{NAV.map(n => <a key={n.href} href={n.href} onClick={() => setOpen(false)}>{n.label}<ArrowRight size={16} /></a>)}<CTA>Darmowa wycena</CTA></div>}
+  </header>;
 }
 
 function Hero() {
-  const particles: { style: React.CSSProperties; cls: string }[] = [
-    { cls: "bg-peach", style: { left: "8%", top: "18%", width: 26, height: 26, borderRadius: "50%", animation: "float-a 9s infinite" } },
-    { cls: "bg-sun border-2 border-ink", style: { left: "15%", top: "65%", width: 34, height: 34, animation: "float-b 11s infinite" } },
-    { cls: "bg-sage", style: { left: "28%", top: "30%", width: 16, height: 16, borderRadius: "50%", animation: "float-c 7s infinite" } },
-    { cls: "bg-lavender border-2 border-ink", style: { left: "38%", top: "78%", width: 22, height: 22, transform: "rotate(45deg)", animation: "float-a 10s infinite" } },
-    { cls: "bg-peach border-2 border-ink", style: { left: "55%", top: "15%", width: 18, height: 18, animation: "float-b 8s infinite" } },
-    { cls: "bg-sun", style: { left: "68%", top: "60%", width: 30, height: 30, borderRadius: "50%", animation: "float-c 12s infinite" } },
-    { cls: "bg-sage border-2 border-ink", style: { left: "80%", top: "25%", width: 24, height: 24, animation: "float-a 9.5s infinite" } },
-    { cls: "bg-lavender", style: { left: "88%", top: "70%", width: 14, height: 14, borderRadius: "50%", animation: "float-b 7.5s infinite" } },
-    { cls: "bg-peach", style: { left: "45%", top: "45%", width: 12, height: 12, animation: "float-c 6.5s infinite" } },
-    { cls: "bg-sun border-2 border-ink", style: { left: "92%", top: "40%", width: 20, height: 20, borderRadius: "50%", animation: "float-a 10.5s infinite" } },
-  ];
-  return (
-    <section className="relative overflow-hidden border-b-2 border-ink">
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        {particles.map((p, i) => (
-          <span key={i} className={`hero-particle ${p.cls}`} style={p.style} />
-        ))}
-      </div>
-      <div className="relative mx-auto flex max-w-4xl flex-col items-center px-4 py-28 text-center md:py-36">
-        <h1 className="text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
-          Prosty marketing i strony WWW, które{" "}
-          <span className="rounded-md border-2 border-ink bg-peach px-2">naprawdę</span> generują klientów.
-        </h1>
-        <a href="#kontakt" className={`${btn} mt-10 bg-sun`}>
-          Dowiedz się więcej
-        </a>
-      </div>
-    </section>
-  );
-}
-
-function SectionHead({ title, sub }: { title: string; sub?: string }) {
-  return (
-    <div className="mb-10 max-w-2xl">
-      <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{title}</h2>
-      {sub && <p className="mt-3 text-lg text-muted-foreground">{sub}</p>}
+  return <section className="hero section-inner">
+    <div className="hero-pattern" aria-hidden="true"><span /><span /><span /></div>
+    <div className="hero-copy">
+      <span className="accent-line" aria-hidden="true" />
+      <h1>Prosty marketing.<br />Więcej klientów.</h1>
+      <p>Strony WWW i kampanie reklamowe, które naprawdę generują klientów.</p>
+      <CTA>Dowiedz się więcej</CTA>
     </div>
-  );
+    <div className="hero-art"><img src={websiteGrid} width={1200} height={800} alt="Siatka projektów stron internetowych w minimalistycznym zielonym stylu" /><div className="art-caption"><span>STRONY WWW / GOOGLE ADS / META ADS</span><ArrowRight size={18} /></div></div>
+  </section>;
 }
 
-function Why() {
-  const items = [
-    { bg: "bg-sun", Icon: Cloud, t: "Strony bez stałych opłat", d: "Kod hostowany na Cloudflare. Płacisz raz za wykonanie strony i nie płacisz co rok setek złotych za hosting." },
-    { bg: "bg-sage", Icon: BarChart3, t: "Pełna analityka (GA4 & GTM)", d: "Podpinam komplet narzędzi Google i mierzę każdą konwersję (formularze, maile, telefon)." },
-    { bg: "bg-lavender", Icon: Target, t: "Kampanie zorientowane na ROI", d: "Konfiguracja i obsługa Google Ads oraz Meta Ads skupiona na pozyskiwaniu realnych zapytań." },
-    { bg: "bg-peach", Icon: Wrench, t: "Wsparcie techniczne w sieci", d: "Pomoc w konfiguracji domen, poczty firmowej i Wizytówki Google Moja Firma." },
-  ];
-  return (
-    <section id="dlaczego" className="scroll-mt-20 border-y-2 border-ink bg-muted py-20">
-      <div className="mx-auto max-w-6xl px-4">
-        <SectionHead title="Dlaczego hs-marketing?" />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {items.map(({ bg, Icon, t, d }) => (
-            <article key={t} className={`brut brut-press ${bg} p-6`}>
-              <div className="brut mb-4 inline-flex bg-card p-2.5">
-                <Icon size={24} strokeWidth={2.5} />
-              </div>
-              <h3 className="text-lg font-bold">{t}</h3>
-              <p className="mt-2 text-sm leading-relaxed">{d}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+function SectionHead({ title, sub, label }: { title: string; sub?: string; label: string }) {
+  return <div className="section-heading"><span className="eyebrow"><span />{label}</span><h2>{title}</h2>{sub && <p>{sub}</p>}</div>;
 }
 
 function Packages() {
@@ -188,39 +96,33 @@ function Packages() {
       features: ["Rozbudowana strona WWW (Cloudflare)", "Pełna analityka (GA4 + GTM + GSC + Pixel Meta)", "Setup + 1. miesiąc prowadzenia Google Ads ORAZ Meta Ads", "Konfiguracja domen, firmowej poczty e-mail i wsparcie techniczne"],
     },
   ];
-  return (
-    <section id="pakiety" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20">
-      <SectionHead title="Wybierz pakiet dopasowany do Twojego biznesu" sub="Przejrzyste warunki, zero ukrytych kosztów." />
-      <div className="grid items-start gap-6 lg:grid-cols-3">
-        {plans.map((p) => (
-          <article key={p.name} className={`brut relative flex h-full flex-col p-7 ${p.featured ? "bg-peach lg:-translate-y-3" : "bg-card"}`}>
-            <span className={`brut self-start px-3 py-1 text-xs font-bold uppercase ${p.featured ? "bg-sun" : "bg-lavender"}`}>{p.tag}</span>
-            <h3 className="mt-5 text-2xl font-bold">PAKIET {p.name}</h3>
-            <p className="text-sm font-semibold">„{p.sub}”</p>
-            <p className="mt-5 flex flex-wrap items-baseline gap-x-3">
-              <span className="font-display text-4xl font-bold">{p.price}</span>
-              <span className="font-display text-lg font-semibold text-muted-foreground line-through">{p.oldPrice}</span>
-            </p>
-            <p className="text-sm">{p.note}</p>
-            {p.after && <p className="mt-2 rounded border-2 border-dashed border-ink px-2 py-1 text-sm font-semibold">{p.after}</p>}
-            <ul className="mt-6 flex-1 space-y-3">
-              {p.features.map((f) => (
-                <li key={f} className="flex gap-3 text-sm">
-                  <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 border-ink bg-sage">
-                    <Check size={12} strokeWidth={3} />
-                  </span>
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <a href="#kontakt" className={`${btn} mt-8 w-full ${p.featured ? "bg-ink text-sun" : "bg-sun"}`}>
-              Wybieram {p.name}
-            </a>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
+  return <section id="pakiety" className="section-block section-inner">
+    <SectionHead label="PAKIETY" title="Wybierz pakiet dopasowany do Twojego biznesu" sub="Przejrzyste warunki, zero ukrytych kosztów." />
+    <div className="package-grid">{plans.map(p => <article key={p.name} className={`package ${p.featured ? "package-featured" : ""}`}>
+      <div className="package-tag">{p.tag}</div>
+      <h3>{p.name}</h3><p className="package-sub">{p.sub}</p>
+      <div className="package-pricing"><span>{p.price}</span><del>{p.oldPrice}</del></div>
+      <p className="package-note">{p.note}</p>
+      <p className="package-after">{p.after || "Bez stałych opłat za hosting"}</p>
+      <ul>{p.features.map(f => <li key={f}><Check size={16} />{f}</li>)}</ul>
+      <CTA outline={!p.featured}>Wybieram {p.name}</CTA>
+    </article>)}</div>
+  </section>;
+}
+
+function Why() {
+  const items = [
+    { Icon: Cloud, t: "Strony bez stałych opłat", d: "Kod hostowany na Cloudflare. Płacisz raz za wykonanie strony i nie płacisz co rok setek złotych za hosting." },
+    { Icon: BarChart3, t: "Pełna analityka (GA4 & GTM)", d: "Podpinam komplet narzędzi Google i mierzę każdą konwersję (formularze, maile, telefon)." },
+    { Icon: Target, t: "Kampanie zorientowane na ROI", d: "Konfiguracja i obsługa Google Ads oraz Meta Ads skupiona na pozyskiwaniu realnych zapytań." },
+    { Icon: Wrench, t: "Wsparcie techniczne w sieci", d: "Pomoc w konfiguracji domen, poczty firmowej i Wizytówki Google Moja Firma." },
+  ];
+  return <section id="dlaczego" className="section-block section-inner">
+    <SectionHead label="DLACZEGO HS-MARKETING" title="Strona i marketing. Jeden spójny ekosystem." />
+    <div className="benefit-grid"><div className="ecosystem"><div className="ecosystem-symbols"><Globe /><BarChart3 /><Target /></div><div><h3>Dlaczego hs-marketing?</h3><p>Strony WWW, analityka i reklamy nastawione na realne zapytania.</p></div></div>
+    <div className="benefits">{items.map(({ Icon, t, d }) => <article key={t}><Icon size={22} strokeWidth={1.5} /><h3>{t}</h3><p>{d}</p></article>)}</div></div>
+    <div className="section-bottom"><p>0 zł za hosting. Pełna analityka. Skuteczne kampanie.</p><a href="#kontakt">Porozmawiajmy o Twoim projekcie <ArrowRight size={16} /></a></div>
+  </section>;
 }
 
 function PriceList() {
@@ -233,110 +135,39 @@ function PriceList() {
     ["Prowadzenie Google Ads + Meta Ads (Pakiet)", "od 990 zł netto / miesiąc"],
     ["Drobne prace i wsparcie techniczne", "120 zł netto / godzina"],
   ];
-  return (
-    <section id="cennik" className="scroll-mt-20 border-y-2 border-ink bg-sun/40 py-20">
-      <div className="mx-auto max-w-4xl px-4">
-        <SectionHead title="Potrzebujesz konkretnej usługi?" sub="Cennik pojedynczych usług — bez pakietów." />
-        <ul className="brut overflow-hidden bg-card">
-          {rows.map(([s, p], i) => (
-            <li key={s} className={`flex flex-col gap-1 px-5 py-4 transition-colors hover:bg-lavender sm:flex-row sm:items-center sm:justify-between ${i ? "border-t-2 border-ink" : ""}`}>
-              <span className="font-semibold">{s}</span>
-              <span className="shrink-0 font-display font-bold">{p}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
+  return <section id="cennik" className="section-block section-inner pricing-section">
+    <SectionHead label="POJEDYNCZE USŁUGI" title="Potrzebujesz konkretnej usługi?" sub="Cennik pojedynczych usług — bez pakietów." />
+    <ul className="price-list">{rows.map(([s,p], i) => <li key={s}><span className="service-number">{String(i + 1).padStart(2,"0")}</span><span>{s}</span><strong>{p}</strong></li>)}</ul>
+  </section>;
 }
 
 function Contact() {
   const options = ["Strona WWW", "Google Ads", "Meta Ads", "Analityka / GTM", "Inne"];
   const [picked, setPicked] = useState<string[]>([]);
-  const toggle = (o: string) => setPicked((p) => (p.includes(o) ? p.filter((x) => x !== o) : [...p, o]));
-  const input = "brut w-full bg-card px-4 py-3 outline-none focus:bg-sun/30";
-
+  const [prepared, setPrepared] = useState(false);
   function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
     const body = `Imię / firma: ${f.get("name")}\nKontakt: ${f.get("contact")}\nZainteresowanie: ${picked.join(", ") || "-"}\n\n${f.get("msg")}`;
-    window.location.href = `mailto:kontakt@hs-marketing.pl?subject=${encodeURIComponent("Zapytanie ze strony")}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:hs-marketing@gmail.com?subject=${encodeURIComponent("Zapytanie ze strony")}&body=${encodeURIComponent(body)}`;
+    setPrepared(true);
   }
-
-  return (
-    <section id="kontakt" className="scroll-mt-20 border-t-2 border-ink bg-peach/40 py-20">
-      <div className="mx-auto max-w-6xl px-4">
-        <SectionHead title="Zróbmy coś razem!" sub="Wypełnij krótki formularz lub napisz bezpośrednio. Odpowiadam w ciągu 24h." />
-        <div className="grid gap-8 lg:grid-cols-[1.6fr_1fr]">
-          <form onSubmit={submit} className="brut space-y-5 bg-card p-6 md:p-8">
-            <label className="block">
-              <span className="mb-2 block font-semibold">Imię i Nazwisko / Nazwa firmy</span>
-              <input name="name" required className={input} />
-            </label>
-            <label className="block">
-              <span className="mb-2 block font-semibold">Adres e-mail lub numer telefonu</span>
-              <input name="contact" required className={input} />
-            </label>
-            <fieldset>
-              <legend className="mb-2 font-semibold">Czym jesteś zainteresowany?</legend>
-              <div className="flex flex-wrap gap-3">
-                {options.map((o) => (
-                  <button
-                    type="button"
-                    key={o}
-                    aria-pressed={picked.includes(o)}
-                    onClick={() => toggle(o)}
-                    className={`brut brut-press rounded-full px-4 py-1.5 text-sm font-semibold ${picked.includes(o) ? "bg-sage" : "bg-card"}`}
-                  >
-                    {picked.includes(o) && "✓ "}
-                    {o}
-                  </button>
-                ))}
-              </div>
-            </fieldset>
-            <label className="block">
-              <span className="mb-2 block font-semibold">Krótki opis projektu</span>
-              <textarea name="msg" rows={4} className={input} />
-            </label>
-            <button type="submit" className={`${btn} w-full bg-sun`}>
-              Wyślij zapytanie
-            </button>
-          </form>
-          <aside className="brut h-fit space-y-5 bg-sun p-6 md:p-8">
-            <h3 className="text-xl font-bold">Kontakt bezpośredni</h3>
-            {[
-              { Icon: Mail, l: "Email", v: "hs-marketing@gmail.com", h: "mailto:hs-marketing@gmail.com" },
-              { Icon: Phone, l: "WhatsApp / Telefon", v: "535 009 931", h: undefined },
-              { Icon: Globe, l: "Domena", v: "hs-marketing.pl", h: "https://hs-marketing.pl" },
-            ].map(({ Icon, l, v, h }) => (
-              <div key={l} className="flex items-center gap-3">
-                <span className="brut inline-flex bg-card p-2"><Icon size={18} /></span>
-                <div>
-                  <p className="text-xs font-semibold uppercase">{l}</p>
-                  {h ? <a href={h} className="font-bold underline-offset-4 hover:underline">{v}</a> : <p className="font-bold">{v}</p>}
-                </div>
-              </div>
-            ))}
-          </aside>
-        </div>
-      </div>
-    </section>
-  );
+  return <section id="kontakt" className="section-block section-inner contact-section">
+    <SectionHead label="KONTAKT" title="Zróbmy coś razem." sub="Wypełnij krótki formularz lub napisz bezpośrednio. Odpowiadam w ciągu 24h." />
+    <div className="contact-grid"><form onSubmit={submit}>
+      <div className="form-row"><label>Imię i Nazwisko / Nazwa firmy<input name="name" required autoComplete="name" /></label><label>Adres e-mail lub numer telefonu<input name="contact" required autoComplete="email" /></label></div>
+      <fieldset><legend>Czym jesteś zainteresowany?</legend><div className="interest-options">{options.map(o => <label key={o}><input type="checkbox" checked={picked.includes(o)} onChange={() => setPicked(p => p.includes(o) ? p.filter(x => x !== o) : [...p,o])} /><span>{o}</span></label>)}</div></fieldset>
+      <label>Krótki opis projektu<textarea name="msg" rows={4} /></label>
+      <Button type="submit" className="adfin-button">Wyślij zapytanie<ArrowRight size={16} /></Button>
+      {prepared && <p className="form-status" role="status">Zapytanie jest gotowe w Twoim programie pocztowym. Wyślij wiadomość, aby je dostarczyć.</p>}
+    </form><aside><h3>Kontakt bezpośredni</h3>{[
+      { Icon: Mail, l: "Email", v: "hs-marketing@gmail.com", h: "mailto:hs-marketing@gmail.com" },
+      { Icon: Phone, l: "WhatsApp / Telefon", v: "535 009 931", h: "tel:+48535009931" },
+      { Icon: Globe, l: "Domena", v: "hs-marketing.pl", h: "https://hs-marketing.pl" },
+    ].map(({Icon,l,v,h}) => <div className="contact-detail" key={l}><Icon size={19} /><div><p>{l}</p><a href={h}>{v}</a></div></div>)}</aside></div>
+  </section>;
 }
 
 function Footer() {
-  return (
-    <footer className="border-t-2 border-ink bg-background">
-      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 md:flex-row md:items-center md:justify-between">
-        <Logo />
-        <ul className="flex flex-wrap gap-5 text-sm font-semibold">
-          {NAV.map((n) => (
-            <li key={n.href}><a href={n.href} className="hover:underline">{n.label}</a></li>
-          ))}
-          <li><a href="#top" className="hover:underline">Polityka prywatności</a></li>
-        </ul>
-        <p className="text-sm text-muted-foreground">© 2026 hs-marketing. Wszystkie prawa zastrzeżone.</p>
-      </div>
-    </footer>
-  );
+  return <footer className="site-footer"><div className="footer-frame"><div className="footer-top"><div><span className="eyebrow"><span />HS-MARKETING.PL</span><h2>Twój kolejny krok?<br />Więcej klientów.</h2></div><CTA outline>Porozmawiajmy</CTA></div><div className="footer-links"><div><h3>Oferta</h3><a href="#pakiety">Pakiety usług</a><a href="#cennik">Cennik</a><a href="#dlaczego">Dlaczego my</a></div><div><h3>Usługi</h3><a href="#pakiety">Strony WWW</a><a href="#cennik">Google Ads i Meta Ads</a><a href="#cennik">Analityka GA4 i GTM</a></div><div><h3>Kontakt</h3><a href="mailto:hs-marketing@gmail.com">hs-marketing@gmail.com</a><a href="tel:+48535009931">535 009 931</a><a href="#kontakt">Darmowa wycena</a></div></div><div className="footer-legal">© 2026 hs-marketing. Wszystkie prawa zastrzeżone.<a href="#top">Wróć na górę <ArrowRight size={14} /></a></div><Logo footer /></div></footer>;
 }
