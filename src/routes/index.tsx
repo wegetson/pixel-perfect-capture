@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { ArrowRight, Check, Cloud, BarChart3, Target, Wrench, Mail, Phone, Globe, Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import websiteGrid from "@/assets/website-grid.jpg";
+import { MarketingAnimation } from "@/components/marketing-animation";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -73,7 +73,7 @@ function Hero() {
       <p>Strony WWW i kampanie reklamowe, które naprawdę generują klientów.</p>
       <CTA>Dowiedz się więcej</CTA>
     </div>
-    <div className="hero-art"><img src={websiteGrid} width={1200} height={800} alt="Siatka projektów stron internetowych w minimalistycznym zielonym stylu" /><div className="art-caption"><span>STRONY WWW / GOOGLE ADS / META ADS</span><ArrowRight size={18} /></div></div>
+    <div className="hero-art"><MarketingAnimation /></div>
   </section>;
 }
 
