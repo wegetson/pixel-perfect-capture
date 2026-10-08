@@ -236,6 +236,11 @@ button { cursor: pointer; }
 .footer-legal a { display: flex; gap: 10px; align-items: center; }
 .footer-wordmark { display: block; font-size: 145px; font-weight: 800; line-height: 1; padding: 80px 32px 16px; white-space: nowrap; }
 .footer-wordmark span { font-size: 40px; }
+.footer-wordmark .piece { display: inline-block; opacity: 0; transform: translate(var(--tx, 0), var(--ty, 0)) rotate(var(--tr, 0deg)); transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease; will-change: transform, opacity; }
+.footer-wordmark.assembled .piece { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+@media (prefers-reduced-motion: reduce) {
+  .footer-wordmark .piece { opacity: 1; transform: none; }
+}
 @media (max-width: 1050px) {
   .section-inner { padding-inline: 45px; }
   .navigation { padding-inline: 25px; gap: 18px; }
