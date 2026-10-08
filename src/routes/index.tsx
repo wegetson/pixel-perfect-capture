@@ -19,7 +19,27 @@ export const Route = createFileRoute("/")({
         content: "0 zł za hosting, pełna analityka i kampanie Google & Meta Ads. Bez korpo-bełkotu.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "/" },
+      { property: "og:site_name", content: "hs-marketing.pl" },
+      { property: "og:locale", content: "pl_PL" },
       { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [{ rel: "canonical", href: "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ProfessionalService",
+          name: "hs-marketing.pl",
+          description:
+            "Szybkie strony WWW bez opłat za hosting, analityka GA4 + GTM oraz kampanie Google Ads i Meta Ads.",
+          email: "hs-marketing@gmail.com",
+          telephone: "+48535009931",
+          areaServed: "PL",
+          priceRange: "1290-3290 PLN",
+        }),
+      },
     ],
   }),
   component: Index,
