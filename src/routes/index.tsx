@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from "react";
 import { ArrowRight, Check, Cloud, BarChart3, Target, Wrench, Mail, Phone, Globe, Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MarketingAnimation } from "@/components/marketing-animation";
@@ -33,8 +33,52 @@ const NAV = [
   { href: "#kontakt", label: "Kontakt" },
 ];
 
+const WORDMARK_PIECES = [
+  { t: "hs", x: "-0.9em", y: "-1.7em", r: "-24deg" },
+  { t: "-", x: "0.4em", y: "-2.3em", r: "32deg" },
+  { t: "ma", x: "-0.6em", y: "2.1em", r: "18deg" },
+  { t: "rke", x: "0.8em", y: "-1.9em", r: "-16deg" },
+  { t: "ting", x: "1.2em", y: "1.9em", r: "22deg" },
+  { t: ".pl", x: "-0.8em", y: "2.5em", r: "-28deg", small: true },
+];
+
 function Logo({ footer = false }: { footer?: boolean }) {
-  return <a href="#top" className={footer ? "footer-wordmark" : "wordmark"} aria-label="hs-marketing — strona główna">hs-marketing<span>.pl</span></a>;
+  const ref = useRef<HTMLAnchorElement>(null);
+  const [assembled, setAssembled] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setAssembled(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.45 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  if (!footer) {
+    return <a href="#top" className="wordmark" aria-label="hs-marketing — strona główna">hs-marketing<span>.pl</span></a>;
+  }
+
+  return (
+    <a ref={ref} href="#top" className={`footer-wordmark${assembled ? " assembled" : ""}`} aria-label="hs-marketing — strona główna">
+      {WORDMARK_PIECES.map((p, i) => (
+        <span
+          key={p.t}
+          className={`piece${p.small ? " small" : ""}`}
+          style={{ "--tx": p.x, "--ty": p.y, "--tr": p.r, transitionDelay: `${i * 70}ms` } as CSSProperties}
+        >
+          {p.t}
+        </span>
+      ))}
+    </a>
+  );
 }
 
 function CTA({ href = "#kontakt", children, outline = false }: { href?: string; children: React.ReactNode; outline?: boolean }) {
