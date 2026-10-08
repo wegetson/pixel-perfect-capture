@@ -2,3 +2,7 @@
 - [x] Match reference typography, palette, grid, navigation, and motion with available substitute fonts and original marketing artwork.
 - [x] Restyle every existing section while retaining offers and contact details.
 - [x] Verify navigation, form preparation, images, and page layout; routing test passed and no browser errors observed.
+
+# Banner animation
+- [ ] Replace the banner image with a looping four-stage schematic animation.
+- [ ] Verify playback, pause, and reduced-motion presentation.
