@@ -132,7 +132,7 @@ function Hero() {
     <div className="hero-pattern" aria-hidden="true"><span /><span /><span /></div>
     <div className="hero-copy">
       <span className="accent-line" aria-hidden="true" />
-      <h1>Prosty marketing.<br />Więcej klientów.</h1>
+      <h1>Skuteczny marketing.<br />Więcej klientów.</h1>
       <p>Strony WWW i kampanie reklamowe, które naprawdę generują klientów.</p>
       <CTA>Dowiedz się więcej</CTA>
     </div>
