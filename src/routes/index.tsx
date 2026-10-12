@@ -7,13 +7,13 @@ import { MarketingAnimation } from "@/components/marketing-animation";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "hs-marketing.pl — Strony WWW bez hostingu i kampanie Google & Meta Ads" },
+      { title: "hsmarketing.pl — Strony WWW bez hostingu i kampanie Google & Meta Ads" },
       {
         name: "description",
         content:
           "Szybkie strony WWW bez opłat za hosting, analityka GA4 + GTM oraz kampanie Google Ads i Meta Ads nastawione na klientów.",
       },
-      { property: "og:title", content: "hs-marketing.pl — Strony WWW i marketing, który generuje klientów" },
+      { property: "og:title", content: "hsmarketing.pl — Strony WWW i marketing, który generuje klientów" },
       {
         property: "og:description",
         content: "0 zł za hosting, pełna analityka i kampanie Google & Meta Ads. Bez korpo-bełkotu.",
