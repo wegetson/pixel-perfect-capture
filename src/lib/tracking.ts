@@ -1,0 +1,12 @@
+// Pushes events to the Google Tag Manager dataLayer. Safe to call before GTM loads.
+declare global {
+  interface Window {
+    dataLayer?: Record<string, unknown>[];
+  }
+}
+
+export function track(event: string, params: Record<string, unknown> = {}) {
+  if (typeof window === "undefined") return;
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event, ...params });
+}
