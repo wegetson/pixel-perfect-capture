@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from "react";
-import { ArrowRight, Check, Cloud, BarChart3, Target, Wrench, Mail, Phone, Globe, Menu, X, ChevronDown } from "lucide-react";
+import { ArrowRight, Check, Cloud, BarChart3, Target, Wrench, Mail, Globe, Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MarketingAnimation } from "@/components/marketing-animation";
 import { useServerFn } from "@tanstack/react-start";
@@ -38,7 +38,6 @@ export const Route = createFileRoute("/")({
           description:
             "Szybkie strony WWW bez opłat za hosting, analityka GA4 + GTM oraz kampanie Google Ads i Meta Ads.",
           email: "hsmarketing.pl@gmail.com",
-          telephone: "+48535009931",
           areaServed: "PL",
           priceRange: "1290-3290 PLN",
         }),
@@ -179,7 +178,7 @@ function Packages() {
 function Why() {
   const items = [
     { Icon: Cloud, t: "Strony bez stałych opłat", d: "Kod hostowany na Cloudflare. Płacisz raz za wykonanie strony i nie płacisz co rok setek złotych za hosting." },
-    { Icon: BarChart3, t: "Pełna analityka (GA4 & GTM)", d: "Podpinam komplet narzędzi Google i mierzę każdą konwersję (formularze, maile, telefon)." },
+    { Icon: BarChart3, t: "Pełna analityka (GA4 & GTM)", d: "Podpinam komplet narzędzi Google i mierzę każdą konwersję (formularze, maile)." },
     { Icon: Target, t: "Kampanie zorientowane na ROI", d: "Konfiguracja i obsługa Google Ads oraz Meta Ads skupiona na pozyskiwaniu realnych zapytań." },
     { Icon: Wrench, t: "Wsparcie techniczne w sieci", d: "Pomoc w konfiguracji domen, poczty firmowej i Wizytówki Google Moja Firma." },
   ];
@@ -238,12 +237,11 @@ function Contact() {
       {status === "sent" && <p className="form-status" role="status">Dziękuję! Zapytanie zostało wysłane — odezwę się w ciągu 24h.</p>}{status === "error" && <p className="form-status" role="alert">Nie udało się wysłać. Spróbuj ponownie lub napisz na hsmarketing.pl@gmail.com.</p>}
     </form><aside><h3>Kontakt bezpośredni</h3>{[
       { kind: "email", Icon: Mail, l: "Email", v: "hsmarketing.pl@gmail.com", h: "mailto:hsmarketing.pl@gmail.com" },
-      { kind: "phone", Icon: Phone, l: "WhatsApp / Telefon", v: "535 009 931", h: "tel:+48535009931" },
       { kind: "website", Icon: Globe, l: "Domena", v: "hsmarketing.pl", h: "https://hsmarketing.pl" },
     ].map(({kind,Icon,l,v,h}) => <div className="contact-detail" key={l}><Icon size={19} /><div><p>{l}</p><a href={h} data-gtm={kind} onClick={() => track(`${kind}_click`, { location: "contact" })}>{v}</a></div></div>)}</aside></div>
   </section>;
 }
 
 function Footer() {
-  return <footer className="site-footer"><div className="footer-frame"><div className="footer-top"><div><span className="eyebrow"><span />HSMARKETING.PL</span><h2>Twój kolejny krok?<br />Więcej klientów.</h2></div><CTA outline gtm="footer-porozmawiajmy">Porozmawiajmy</CTA></div><div className="footer-links"><div><h3>Oferta</h3><a href="#pakiety">Pakiety usług</a><a href="#cennik">Cennik</a><a href="#dlaczego">Dlaczego my</a></div><div><h3>Usługi</h3><a href="#pakiety">Strony WWW</a><a href="#cennik">Google Ads i Meta Ads</a><a href="#cennik">Analityka GA4 i GTM</a></div><div><h3>Kontakt</h3><a href="mailto:hsmarketing.pl@gmail.com" data-gtm="email" onClick={() => track("email_click", { location: "footer" })}>hsmarketing.pl@gmail.com</a><a href="tel:+48535009931" data-gtm="phone" onClick={() => track("phone_click", { location: "footer" })}>535 009 931</a><a href="#kontakt">Darmowa wycena</a></div></div><div className="footer-legal">© 2026 hsmarketing. Wszystkie prawa zastrzeżone.<a href="#top">Wróć na górę <ArrowRight size={14} /></a></div><Logo footer /></div></footer>;
+  return <footer className="site-footer"><div className="footer-frame"><div className="footer-top"><div><span className="eyebrow"><span />HSMARKETING.PL</span><h2>Twój kolejny krok?<br />Więcej klientów.</h2></div><CTA outline gtm="footer-porozmawiajmy">Porozmawiajmy</CTA></div><div className="footer-links"><div><h3>Oferta</h3><a href="#pakiety">Pakiety usług</a><a href="#cennik">Cennik</a><a href="#dlaczego">Dlaczego my</a></div><div><h3>Usługi</h3><a href="#pakiety">Strony WWW</a><a href="#cennik">Google Ads i Meta Ads</a><a href="#cennik">Analityka GA4 i GTM</a></div><div><h3>Kontakt</h3><a href="mailto:hsmarketing.pl@gmail.com" data-gtm="email" onClick={() => track("email_click", { location: "footer" })}>hsmarketing.pl@gmail.com</a><a href="#kontakt">Darmowa wycena</a></div></div><div className="footer-legal">© 2026 hsmarketing. Wszystkie prawa zastrzeżone.<a href="#top">Wróć na górę <ArrowRight size={14} /></a></div><Logo footer /></div></footer>;
 }
