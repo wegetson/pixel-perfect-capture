@@ -228,7 +228,7 @@ function Contact() {
     }
   }
   return <section id="kontakt" className="section-block section-inner contact-section">
-    <SectionHead label="KONTAKT" title="Zróbmy coś razem." sub="Wypełnij krótki formularz lub napisz bezpośrednio. Odpowiadam w ciągu 24h." />
+    <SectionHead label="KONTAKT" title="Droga do pozyskiwania klientów zaczyna się tutaj." sub="Wypełnij krótki formularz lub napisz bezpośrednio. Odpowiadam w ciągu 24h." />
     <div className="contact-grid"><form id="contact-form" data-gtm="contact-form" onSubmit={submit}>
       <div className="form-row"><label>Imię i Nazwisko / Nazwa firmy<input name="name" required autoComplete="name" /></label><label>Adres e-mail lub numer telefonu<input name="contact" required autoComplete="email" /></label></div>
       <fieldset><legend>Czym jesteś zainteresowany?</legend><div className="interest-options">{options.map(o => <label key={o}><input type="checkbox" checked={picked.includes(o)} onChange={() => setPicked(p => p.includes(o) ? p.filter(x => x !== o) : [...p,o])} /><span>{o}</span></label>)}</div></fieldset>
