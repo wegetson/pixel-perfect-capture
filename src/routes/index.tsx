@@ -3,6 +3,9 @@ import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from 
 import { ArrowRight, Check, Cloud, BarChart3, Target, Wrench, Mail, Phone, Globe, Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MarketingAnimation } from "@/components/marketing-animation";
+import { useServerFn } from "@tanstack/react-start";
+import { submitLead } from "@/lib/leads.functions";
+import { track } from "@/lib/tracking";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -100,8 +103,8 @@ function Logo({ footer = false }: { footer?: boolean }) {
   );
 }
 
-function CTA({ href = "#kontakt", children, outline = false }: { href?: string; children: React.ReactNode; outline?: boolean }) {
-  return <Button asChild variant={outline ? "outline" : "default"} className="adfin-button"><a href={href}>{children}<ArrowRight size={16} /></a></Button>;
+function CTA({ href = "#kontakt", children, outline = false, gtm }: { href?: string; children: React.ReactNode; outline?: boolean; gtm: string }) {
+  return <Button asChild variant={outline ? "outline" : "default"} className="adfin-button"><a href={href} id={`cta-${gtm}`} data-gtm="cta" data-gtm-label={gtm} onClick={() => track("cta_click", { cta_id: gtm, cta_target: href })}>{children}<ArrowRight size={16} /></a></Button>;
 }
 
 function Index() {
@@ -116,14 +119,14 @@ function Navbar() {
   const [open, setOpen] = useState(false);
   const [notice, setNotice] = useState(true);
   return <header className="site-header">
-    {notice && <div className="announcement"><a href="#pakiety">Strony WWW bez opłat za hosting. Poznaj pakiety <ArrowRight size={14} /></a><Button variant="ghost" size="icon" aria-label="Zamknij informację" onClick={() => setNotice(false)}><X size={15} /></Button></div>}
+    {notice && <div className="announcement"><a href="#pakiety" data-gtm="announcement">Strony WWW bez opłat za hosting. Poznaj pakiety <ArrowRight size={14} /></a><Button variant="ghost" size="icon" aria-label="Zamknij informację" onClick={() => setNotice(false)}><X size={15} /></Button></div>}
     <nav className="navigation">
       <Logo />
-      <ul className="desktop-links">{NAV.map((n, i) => <li key={n.href}><a href={n.href}>{n.label}{i < 2 && <ChevronDown size={12} />}</a></li>)}</ul>
+      <ul className="desktop-links">{NAV.map((n, i) => <li key={n.href}><a href={n.href} data-gtm="nav" data-gtm-label={n.label} onClick={() => track("nav_click", { nav_target: n.href, location: "header" })}>{n.label}{i < 2 && <ChevronDown size={12} />}</a></li>)}</ul>
       <div className="navigation-cta"><CTA gtm="header-wycena">Darmowa wycena</CTA></div>
       <Button className="mobile-menu" variant="ghost" size="icon" aria-label={open ? "Zamknij menu" : "Otwórz menu"} aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button>
     </nav>
-    {open && <div className="mobile-links">{NAV.map(n => <a key={n.href} href={n.href} onClick={() => setOpen(false)}>{n.label}<ArrowRight size={16} /></a>)}<CTA gtm="mobile-wycena">Darmowa wycena</CTA></div>}
+    {open && <div className="mobile-links">{NAV.map(n => <a key={n.href} href={n.href} data-gtm="nav" data-gtm-label={n.label} onClick={() => { setOpen(false); track("nav_click", { nav_target: n.href, location: "mobile" }); }}>{n.label}<ArrowRight size={16} /></a>)}<CTA gtm="mobile-wycena">Darmowa wycena</CTA></div>}
   </header>;
 }
 
@@ -134,7 +137,7 @@ function Hero() {
       <span className="accent-line" aria-hidden="true" />
       <h1>Skuteczny marketing.<br />Więcej klientów.</h1>
       <p>Strony WWW i kampanie reklamowe, które naprawdę generują klientów.</p>
-      <CTA>Dowiedz się więcej</CTA>
+      <CTA gtm="hero-dowiedz-sie">Dowiedz się więcej</CTA>
     </div>
     <div className="hero-art"><MarketingAnimation /></div>
   </section>;
@@ -168,7 +171,7 @@ function Packages() {
       <p className="package-note">{p.note}</p>
       <p className="package-after">{p.after || "Bez stałych opłat za hosting"}</p>
       <ul>{p.features.map(f => <li key={f}><Check size={16} />{f}</li>)}</ul>
-      <CTA outline={!p.featured}>Wybieram {p.name}</CTA>
+      <CTA outline={!p.featured} gtm={`pakiet-${p.name.toLowerCase().replace(/\s+/g, "-")}`}>Wybieram {p.name}</CTA>
     </article>)}</div>
   </section>;
 }
@@ -184,7 +187,7 @@ function Why() {
     <SectionHead label="DLACZEGO HS-MARKETING" title="Strona i marketing. Jeden spójny ekosystem." />
     <div className="benefit-grid"><div className="ecosystem"><div className="ecosystem-symbols"><Globe /><BarChart3 /><Target /></div><div><h3>Dlaczego hsmarketing?</h3><p>Strony WWW, analityka i reklamy nastawione na realne zapytania.</p></div></div>
     <div className="benefits">{items.map(({ Icon, t, d }) => <article key={t}><Icon size={22} strokeWidth={1.5} /><h3>{t}</h3><p>{d}</p></article>)}</div></div>
-    <div className="section-bottom"><p>0 zł za hosting. Pełna analityka. Skuteczne kampanie.</p><a href="#kontakt">Porozmawiajmy o Twoim projekcie <ArrowRight size={16} /></a></div>
+    <div className="section-bottom"><p>0 zł za hosting. Pełna analityka. Skuteczne kampanie.</p><a href="#kontakt" data-gtm="cta" data-gtm-label="why-porozmawiajmy" onClick={() => track("cta_click", { cta_id: "why-porozmawiajmy", cta_target: "#kontakt" })}>Porozmawiajmy o Twoim projekcie <ArrowRight size={16} /></a></div>
   </section>;
 }
 
@@ -207,30 +210,40 @@ function PriceList() {
 function Contact() {
   const options = ["Strona WWW", "Google Ads", "Meta Ads", "Analityka / GTM", "Inne"];
   const [picked, setPicked] = useState<string[]>([]);
-  const [prepared, setPrepared] = useState(false);
-  function submit(e: FormEvent<HTMLFormElement>) {
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const send = useServerFn(submitLead);
+  async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const f = new FormData(e.currentTarget);
-    const body = `Imię / firma: ${f.get("name")}\nKontakt: ${f.get("contact")}\nZainteresowanie: ${picked.join(", ") || "-"}\n\n${f.get("msg")}`;
-    window.location.href = `mailto:hsmarketing.pl@gmail.com?subject=${encodeURIComponent("Zapytanie ze strony")}&body=${encodeURIComponent(body)}`;
-    setPrepared(true);
+    const form = e.currentTarget;
+    const f = new FormData(form);
+    setStatus("sending");
+    track("form_submit_attempt", { form_id: "contact" });
+    try {
+      const res = await send({ data: { name: String(f.get("name") || ""), contact: String(f.get("contact") || ""), interests: picked, message: String(f.get("msg") || "") } });
+      if (!res.ok) throw new Error("failed");
+      track("generate_lead", { form_id: "contact", interests: picked.join(", ") || "-" });
+      form.reset(); setPicked([]); setStatus("sent");
+    } catch {
+      track("form_submit_error", { form_id: "contact" });
+      setStatus("error");
+    }
   }
   return <section id="kontakt" className="section-block section-inner contact-section">
     <SectionHead label="KONTAKT" title="Zróbmy coś razem." sub="Wypełnij krótki formularz lub napisz bezpośrednio. Odpowiadam w ciągu 24h." />
-    <div className="contact-grid"><form onSubmit={submit}>
+    <div className="contact-grid"><form id="contact-form" data-gtm="contact-form" onSubmit={submit}>
       <div className="form-row"><label>Imię i Nazwisko / Nazwa firmy<input name="name" required autoComplete="name" /></label><label>Adres e-mail lub numer telefonu<input name="contact" required autoComplete="email" /></label></div>
       <fieldset><legend>Czym jesteś zainteresowany?</legend><div className="interest-options">{options.map(o => <label key={o}><input type="checkbox" checked={picked.includes(o)} onChange={() => setPicked(p => p.includes(o) ? p.filter(x => x !== o) : [...p,o])} /><span>{o}</span></label>)}</div></fieldset>
       <label>Krótki opis projektu<textarea name="msg" rows={4} /></label>
-      <Button type="submit" className="adfin-button">Wyślij zapytanie<ArrowRight size={16} /></Button>
-      {prepared && <p className="form-status" role="status">Zapytanie jest gotowe w Twoim programie pocztowym. Wyślij wiadomość, aby je dostarczyć.</p>}
+      <Button type="submit" id="contact-submit" data-gtm="form-submit" className="adfin-button" disabled={status === "sending"}>{status === "sending" ? "Wysyłanie…" : "Wyślij zapytanie"}<ArrowRight size={16} /></Button>
+      {status === "sent" && <p className="form-status" role="status">Dziękuję! Zapytanie zostało wysłane — odezwę się w ciągu 24h.</p>}{status === "error" && <p className="form-status" role="alert">Nie udało się wysłać. Spróbuj ponownie lub napisz na hsmarketing.pl@gmail.com.</p>}
     </form><aside><h3>Kontakt bezpośredni</h3>{[
-      { Icon: Mail, l: "Email", v: "hsmarketing.pl@gmail.com", h: "mailto:hsmarketing.pl@gmail.com" },
-      { Icon: Phone, l: "WhatsApp / Telefon", v: "535 009 931", h: "tel:+48535009931" },
-      { Icon: Globe, l: "Domena", v: "hsmarketing.pl", h: "https://hsmarketing.pl" },
-    ].map(({Icon,l,v,h}) => <div className="contact-detail" key={l}><Icon size={19} /><div><p>{l}</p><a href={h}>{v}</a></div></div>)}</aside></div>
+      { kind: "email", Icon: Mail, l: "Email", v: "hsmarketing.pl@gmail.com", h: "mailto:hsmarketing.pl@gmail.com" },
+      { kind: "phone", Icon: Phone, l: "WhatsApp / Telefon", v: "535 009 931", h: "tel:+48535009931" },
+      { kind: "website", Icon: Globe, l: "Domena", v: "hsmarketing.pl", h: "https://hsmarketing.pl" },
+    ].map(({kind,Icon,l,v,h}) => <div className="contact-detail" key={l}><Icon size={19} /><div><p>{l}</p><a href={h} data-gtm={kind} onClick={() => track(`${kind}_click`, { location: "contact" })}>{v}</a></div></div>)}</aside></div>
   </section>;
 }
 
 function Footer() {
-  return <footer className="site-footer"><div className="footer-frame"><div className="footer-top"><div><span className="eyebrow"><span />HSMARKETING.PL</span><h2>Twój kolejny krok?<br />Więcej klientów.</h2></div><CTA outline>Porozmawiajmy</CTA></div><div className="footer-links"><div><h3>Oferta</h3><a href="#pakiety">Pakiety usług</a><a href="#cennik">Cennik</a><a href="#dlaczego">Dlaczego my</a></div><div><h3>Usługi</h3><a href="#pakiety">Strony WWW</a><a href="#cennik">Google Ads i Meta Ads</a><a href="#cennik">Analityka GA4 i GTM</a></div><div><h3>Kontakt</h3><a href="mailto:hsmarketing.pl@gmail.com">hsmarketing.pl@gmail.com</a><a href="tel:+48535009931">535 009 931</a><a href="#kontakt">Darmowa wycena</a></div></div><div className="footer-legal">© 2026 hsmarketing. Wszystkie prawa zastrzeżone.<a href="#top">Wróć na górę <ArrowRight size={14} /></a></div><Logo footer /></div></footer>;
+  return <footer className="site-footer"><div className="footer-frame"><div className="footer-top"><div><span className="eyebrow"><span />HSMARKETING.PL</span><h2>Twój kolejny krok?<br />Więcej klientów.</h2></div><CTA outline gtm="footer-porozmawiajmy">Porozmawiajmy</CTA></div><div className="footer-links"><div><h3>Oferta</h3><a href="#pakiety">Pakiety usług</a><a href="#cennik">Cennik</a><a href="#dlaczego">Dlaczego my</a></div><div><h3>Usługi</h3><a href="#pakiety">Strony WWW</a><a href="#cennik">Google Ads i Meta Ads</a><a href="#cennik">Analityka GA4 i GTM</a></div><div><h3>Kontakt</h3><a href="mailto:hsmarketing.pl@gmail.com" data-gtm="email" onClick={() => track("email_click", { location: "footer" })}>hsmarketing.pl@gmail.com</a><a href="tel:+48535009931" data-gtm="phone" onClick={() => track("phone_click", { location: "footer" })}>535 009 931</a><a href="#kontakt">Darmowa wycena</a></div></div><div className="footer-legal">© 2026 hsmarketing. Wszystkie prawa zastrzeżone.<a href="#top">Wróć na górę <ArrowRight size={14} /></a></div><Logo footer /></div></footer>;
 }
