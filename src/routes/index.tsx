@@ -149,15 +149,15 @@ function SectionHead({ title, sub, label }: { title: string; sub?: string; label
 function Packages() {
   const plans = [
     {
-      name: "START", sub: "Obecność w Sieci", tag: "Idealne na początek", price: "1 290 zł", oldPrice: "1 899 zł", note: "netto, jednorazowo",
+      name: "START", sub: "Obecność w Sieci", tag: "Idealne na początek", price: "1 290 zł", oldPrice: "1 899 zł", note: "jednorazowo",
       features: ["Nowoczesna strona WWW / Landing Page (GitHub + Cloudflare)", "0 zł opłat za hosting", "Konfiguracja GA4 + Google Tag Manager", "Konfiguracja Google Search Console", "Wizytówka Google Moja Firma"],
     },
     {
-      name: "BIZNES", sub: "Strona + Klient", tag: "Najchętniej wybierany", price: "2 190 zł", oldPrice: "3 699 zł", note: "netto na start, z 1. miesiącem obsługi", after: "Od 2. miesiąca: 650 zł netto / mc", featured: true,
+      name: "BIZNES", sub: "Strona + Klient", tag: "Najchętniej wybierany", price: "2 190 zł", oldPrice: "3 699 zł", note: "na start, z 1. miesiącem obsługi", after: "Od 2. miesiąca: 650 zł / mc", featured: true,
       features: ["Wszystko z Pakietu START", "Setup kampanii Google Ads LUB Meta Ads", "Konfiguracja śledzenia konwersji i zdarzeń", "1. miesiąc prowadzenia i optymalizacji kampanii w cenie"],
     },
     {
-      name: "PRO GROWTH", sub: "Pełny Ekosystem", tag: "Dla wymagających", price: "3 290 zł", oldPrice: "4 999 zł", note: "netto na start", after: "Od 2. miesiąca: 1 150 zł netto / mc",
+      name: "PRO GROWTH", sub: "Pełny Ekosystem", tag: "Dla wymagających", price: "3 290 zł", oldPrice: "4 999 zł", note: "na start", after: "Od 2. miesiąca: 1 150 zł / mc",
       features: ["Rozbudowana strona WWW (Cloudflare)", "Pełna analityka (GA4 + GTM + GSC + Pixel Meta)", "Setup + 1. miesiąc prowadzenia Google Ads ORAZ Meta Ads", "Konfiguracja domen, firmowej poczty e-mail i wsparcie techniczne"],
     },
   ];
@@ -192,13 +192,13 @@ function Why() {
 
 function PriceList() {
   const rows = [
-    ["Strona WWW (Cloudflare)", "od 990 zł netto"],
-    ["Pełny Setup Analityczny (GA4 + GTM + Search Console)", "490 zł netto"],
-    ["Podpięcie Google Tag Manager (GTM)", "250 zł netto"],
-    ["Setup Kampanii Google Ads lub Meta Ads", "490 zł netto / platforma"],
-    ["Obsługa Kampanii Google Ads / Meta Ads", "od 590 zł netto / miesiąc"],
-    ["Prowadzenie Google Ads + Meta Ads (Pakiet)", "od 990 zł netto / miesiąc"],
-    ["Drobne prace i wsparcie techniczne", "120 zł netto / godzina"],
+    ["Strona WWW (Cloudflare)", "od 990 zł"],
+    ["Pełny Setup Analityczny (GA4 + GTM + Search Console)", "490 zł"],
+    ["Podpięcie Google Tag Manager (GTM)", "250 zł"],
+    ["Setup Kampanii Google Ads lub Meta Ads", "490 zł / platforma"],
+    ["Obsługa Kampanii Google Ads / Meta Ads", "od 590 zł / miesiąc"],
+    ["Prowadzenie Google Ads + Meta Ads (Pakiet)", "od 990 zł / miesiąc"],
+    ["Drobne prace i wsparcie techniczne", "120 zł / godzina"],
   ];
   return <section id="cennik" className="section-block section-inner pricing-section">
     <SectionHead label="POJEDYNCZE USŁUGI" title="Potrzebujesz konkretnej usługi?" sub="Cennik pojedynczych usług — bez pakietów." />
