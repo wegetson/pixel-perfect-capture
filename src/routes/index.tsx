@@ -120,10 +120,10 @@ function Navbar() {
     <nav className="navigation">
       <Logo />
       <ul className="desktop-links">{NAV.map((n, i) => <li key={n.href}><a href={n.href}>{n.label}{i < 2 && <ChevronDown size={12} />}</a></li>)}</ul>
-      <div className="navigation-cta"><CTA>Darmowa wycena</CTA></div>
+      <div className="navigation-cta"><CTA gtm="header-wycena">Darmowa wycena</CTA></div>
       <Button className="mobile-menu" variant="ghost" size="icon" aria-label={open ? "Zamknij menu" : "Otwórz menu"} aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button>
     </nav>
-    {open && <div className="mobile-links">{NAV.map(n => <a key={n.href} href={n.href} onClick={() => setOpen(false)}>{n.label}<ArrowRight size={16} /></a>)}<CTA>Darmowa wycena</CTA></div>}
+    {open && <div className="mobile-links">{NAV.map(n => <a key={n.href} href={n.href} onClick={() => setOpen(false)}>{n.label}<ArrowRight size={16} /></a>)}<CTA gtm="mobile-wycena">Darmowa wycena</CTA></div>}
   </header>;
 }
 
