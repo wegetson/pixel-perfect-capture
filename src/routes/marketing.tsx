@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, BarChart3, Megaphone, MousePointerClick, PieChart, Target, Zap } from "lucide-react";
 import { ContactSection, CTA, Footer, Navbar, PriceList, SectionHead } from "@/components/site";
 import { track } from "@/lib/tracking";
 
