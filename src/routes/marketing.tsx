@@ -48,7 +48,7 @@ function WhyMarketing() {
     { Icon: BarChart3, t: "Pełna analityka (GA4 & GTM)", d: "Podpinam komplet narzędzi Google i mierzę każdą konwersję (formularze, telefony, maile). Widzisz, skąd przychodzą klienci." },
     { Icon: PieChart, t: "Przejrzyste rozliczenia", d: "Wiesz, ile płacisz, na co idzie budżet i co realnie przynosi. Bez korpo-bełkotu i ukrytych kosztów." },
     { Icon: MousePointerClick, t: "Optymalizacja zamiast ustaw-i-zapomnij", d: "Kampanie regularnie optymalizuję: wyłączam to, co nie działa, i skaluję to, co przynosi klientów." },
-    { Icon: ArrowRight, t: "Szybki start", d: "Setup kampanii to 490 zł za platformę, a prowadzenie od 590 zł miesięcznie. Pierwsze wyniki widzisz zwykle w ciągu tygodni." },
+    { Icon: Zap, t: "Szybki start", d: "Setup kampanii to 490 zł za platformę, a prowadzenie od 590 zł miesięcznie. Pierwsze wyniki widzisz zwykle w ciągu tygodni." },
   ];
   return <section id="dlaczego" className="section-block section-inner">
     <SectionHead label="DLACZEGO NASZ MARKETING" title="Dlaczego warto skorzystać z naszego marketingu" sub="Reklama ma zarabiać, nie kosztować. Oto jak dbam o to w praktyce." />
