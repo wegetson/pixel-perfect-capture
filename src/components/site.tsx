@@ -140,5 +140,3 @@ export function ContactSection({ label, title, sub }: { label: string; title: st
     ].map(({ kind, Icon, l, v, h }) => <div className="contact-detail" key={l}><Icon size={19} /><div><p>{l}</p><a href={h} data-gtm={kind} onClick={() => track(`${kind}_click`, { location: "contact" })}>{v}</a></div></div>)}</aside></div>
   </section>;
 }
-
-export { Check };
