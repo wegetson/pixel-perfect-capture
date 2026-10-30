@@ -4,6 +4,10 @@ Implement exactly the screenshot and nothing else
 
 This project was built with [Lovable](https://lovable.dev).
 
+## Formularz kontaktowy na Cloudflare
+
+Konfiguracja zapisu do Google Sheets bez kluczy Lovable: [instrukcja](integrations/google-sheets/README.md).
+
 ## Build with Lovable
 
 Continue developing this project in the [Lovable editor](https://lovable.dev/projects/93789648-240c-4c3c-bbac-cc3b0b998dd0).
