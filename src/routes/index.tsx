@@ -38,6 +38,20 @@ export const Route = createFileRoute("/")({
           email: "hsmarketing.pl@gmail.com",
           areaServed: "PL",
           priceRange: "1290-3290 PLN",
+          url: "https://hsmarketing.pl/",
+          inLanguage: "pl-PL",
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: "Pakiety usług",
+            itemListElement: [
+              ["START", 1290], ["BIZNES", 2190], ["PRO GROWTH", 3290],
+            ].map(([n, p]) => ({
+              "@type": "Offer",
+              name: `Pakiet ${n}`,
+              price: p,
+              priceCurrency: "PLN",
+            })),
+          },
         }),
       },
     ],
@@ -95,7 +109,7 @@ function Why() {
     { Icon: Wrench, t: "Wsparcie techniczne w sieci", d: "Pomoc w konfiguracji domen, poczty firmowej i Wizytówki Google Moja Firma." },
   ];
   return <section id="dlaczego" className="section-block section-inner">
-    <SectionHead label="DLACZEGO HS-MARKETING" title="Strona i marketing. Jeden spójny ekosystem." />
+    <SectionHead label="DLACZEGO HSMARKETING.PL" title="Strona i marketing. Jeden spójny ekosystem." />
     <div className="benefit-grid"><div className="ecosystem"><div className="ecosystem-symbols"><Globe /><BarChart3 /><Target /></div><div><h3>Dlaczego hsmarketing?</h3><p>Strony WWW, analityka i reklamy nastawione na realne zapytania.</p></div></div>
     <div className="benefits">{items.map(({ Icon, t, d }) => <article key={t}><Icon size={22} strokeWidth={1.5} /><h3>{t}</h3><p>{d}</p></article>)}</div></div>
     <div className="section-bottom"><p>0 zł za hosting. Pełna analityka. Skuteczne kampanie.</p><a href="#kontakt" data-gtm="cta" data-gtm-label="why-porozmawiajmy" onClick={() => track("cta_click", { cta_id: "why-porozmawiajmy", cta_target: "#kontakt" })}>Porozmawiajmy o Twoim projekcie <ArrowRight size={16} /></a></div>
