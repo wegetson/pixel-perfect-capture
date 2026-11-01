@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, BarChart3, Check, Cloud, Globe, Target, Wrench } from "lucide-react";
 import { CTA, ContactSection, Footer, Navbar, PriceList, SectionHead } from "@/components/site";
 import { MarketingAnimation } from "@/components/marketing-animation";
+import { DiscountPopup } from "@/components/discount-popup";
 import { track } from "@/lib/tracking";
 
 export const Route = createFileRoute("/")({
@@ -106,5 +107,6 @@ function Index() {
     <Navbar />
     <main className="page-frame"><Hero /><Packages /><Why /><PriceList /><ContactSection label="KONTAKT" title="Droga do pozyskiwania klientów zaczyna się tutaj." sub="Wypełnij krótki formularz lub napisz bezpośrednio. Odpowiadam w ciągu 24h." /></main>
     <Footer />
+    <DiscountPopup />
   </div>;
 }
