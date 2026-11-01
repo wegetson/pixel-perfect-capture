@@ -55,7 +55,6 @@ export function DiscountPopup() {
         <Button variant="ghost" size="icon" className="popup-close" aria-label="Zamknij ofertę" data-gtm="popup-close" onClick={close}><X size={18} /></Button>
         <span className="eyebrow"><span />OFERTA</span>
         <h2>Zapisz się teraz, a otrzymasz <strong>15% zniżki</strong>.</h2>
-        <p>Zostaw zapytanie w formularzu — napiszę „15%” w opisie projektu, a rabat odliczę od wyceny.</p>
         <CTA onClick={takeOffer} />
       </div>
     </div>
