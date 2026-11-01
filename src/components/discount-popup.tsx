@@ -32,10 +32,19 @@ export function DiscountPopup() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
-  function close() {
+  function dismiss() {
     setOpen(false);
     sessionStorage.setItem(STORAGE_KEY, "1");
+  }
+
+  function close() {
+    dismiss();
     track("popup_close", { popup_id: "15-offer" });
+  }
+
+  function takeOffer() {
+    dismiss();
+    track("cta_click", { cta_id: "popup-15-oferta", cta_target: "#kontakt" });
   }
 
   if (!open) return null;
