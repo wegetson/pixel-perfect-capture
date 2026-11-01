@@ -24,6 +24,29 @@ export const Route = createFileRoute("/marketing")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/marketing" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify([
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: "Kampanie Google Ads i Meta Ads",
+            serviceType: "Marketing internetowy",
+            areaServed: "PL",
+            provider: { "@type": "ProfessionalService", name: "hsmarketing.pl", email: "hsmarketing.pl@gmail.com" },
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Strona główna", item: "https://hsmarketing.pl/" },
+              { "@type": "ListItem", position: 2, name: "Marketing", item: "https://hsmarketing.pl/marketing" },
+            ],
+          },
+        ]),
+      },
+    ],
   }),
   component: Marketing,
 });
