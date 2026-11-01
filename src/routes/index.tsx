@@ -105,7 +105,7 @@ function Why() {
 function Index() {
   return <div id="top" className="min-h-screen bg-background text-foreground">
     <Navbar />
-    <main className="page-frame"><Hero /><Packages /><Why /><PriceList /><ContactSection label="KONTAKT" title="Droga do pozyskiwania klientów zaczyna się tutaj." sub="Wypełnij krótki formularz lub napisz bezpośrednio. Odpowiadam w ciągu 24h." /></main>
+    <main className="page-frame"><Hero /><ContactSection label="KONTAKT" title="Droga do pozyskiwania klientów zaczyna się tutaj." sub="Wypełnij krótki formularz lub napisz bezpośrednio. Odpowiadam w ciągu 24h." /><Packages /><Why /><PriceList /></main>
     <Footer />
     <DiscountPopup />
   </div>;
