@@ -56,7 +56,7 @@ export function DiscountPopup() {
         <span className="eyebrow"><span />OFERTA</span>
         <h2>Zapisz się teraz, a otrzymasz <strong>15% zniżki</strong>.</h2>
         <p>Zostaw zapytanie w formularzu — napiszę „15%” w opisie projektu, a rabat odliczę od wyceny.</p>
-        <CTA onClick={close} />
+        <CTA onClick={takeOffer} />
       </div>
     </div>
   );
